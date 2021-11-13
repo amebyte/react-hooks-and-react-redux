@@ -1,9 +1,11 @@
 import React, {Component} from "react";
 import store from "../store/";
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
 // import { bindActionCreators } from "redux";
-import { bindActionCreators } from "../coReactRedux/"
+import { bindActionCreators, connect } from "../coReactRedux/"
 
+// hoc
+// 高阶组件是个函数，参数是数组，返回一个新的组件
 @connect(
     // mapStateToProps
     // (state) => ({count: state.count})
@@ -26,19 +28,20 @@ import { bindActionCreators } from "../coReactRedux/"
 )
 class ReduxPage extends Component {
 
-  add = () => {
+  add1 = () => {
     console.log('this.props', this.props)
     // 修改状态 set
     this.props.dispatch({type: "ADD"});
   };
 
   render() {
+      console.log('this.props', this.props)
       const {count, add, minus } = this.props
     return (
       <div>
         <h3>ReduxPage</h3>
         <p>{count}</p>
-        <button onClick={add}>add</button>
+        <button onClick={this.add1}>add</button>
         <button onClick={minus}>minus</button>
       </div>
     );
