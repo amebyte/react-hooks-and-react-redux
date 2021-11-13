@@ -1,59 +1,44 @@
 import React, {Component} from "react";
 import store from "../store/";
 import {connect} from 'react-redux'
+import { bindActionCreators } from "redux";
 
 @connect(
     // mapStateToProps
-    (state) => ({count: state.count})
+    // (state) => ({count: state.count})
+    ({count}) => ({count}),
+    // {
+    //     add: () => ({ type: 'ADD'})
+    // }
+    (dispatch) => {
+        // const add = () => dispatch({type: 'ADD'})
+        // const minus = () => dispatch({type: 'MINUS'})
+
+        let creators = {
+            add: () => ({type: 'ADD'}),
+            minus: () => ({type: 'MINUS'})
+        }
+        creators = bindActionCreators(creators, dispatch)
+        // return { dispatch, add, minus }
+        return { dispatch, ...creators }
+    }
 )
 class ReduxPage extends Component {
-  componentDidMount() {
-    // store发生变化之后，执行subscribe的监听函数
-    this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate();
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
 
   add = () => {
     console.log('this.props', this.props)
     // 修改状态 set
-    store.dispatch({type: "ADD"});
-  };
-
-  asyAdd = () => {
-    // ajax
-    // setTimeout(() => {
-    //   store.dispatch({type: "ADD", payload: 1});
-    // }, 1000);
-
-    store.dispatch((dispatch, getState) => {
-      console.log('pre-state', getState())
-      setTimeout(() => {
-        // console.log("now ", getState()); //sy-log
-        dispatch({type: "ADD", payload: 1});
-      }, 1000);
-    });
-  };
-
-  promiseMinus = () => {
-    store.dispatch(
-      Promise.resolve({
-        type: "MINUS",
-        payload: 100,
-      })
-    );
+    this.props.dispatch({type: "ADD"});
   };
 
   render() {
+      const {count, add, minus } = this.props
     return (
       <div>
         <h3>ReduxPage</h3>
-        <p>{store.getState().count}</p>
-        <button onClick={this.add}>add</button>
+        <p>{count}</p>
+        <button onClick={add}>add</button>
+        <button onClick={minus}>minus</button>
       </div>
     );
   }
