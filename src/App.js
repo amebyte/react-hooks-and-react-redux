@@ -1,5 +1,5 @@
-import ReduxPage from "./pages/AmeReduxPage";
-// import AmeReactReduxHooksPage from "./pages/AmeReactReduxHooksPage";
+// import ReduxPage from "./pages/AmeReduxPage";
+import AmeReactReduxHooksPage from "./pages/AmeReactReduxHooksPage2";
 import { useState } from "react";
 // import AmeHooksPage from "./pages/AmeHooksPage";
 
@@ -9,7 +9,8 @@ export default function App(props) {
     <div>
       {/* <button onClick={() => setState(state + 1)}>{state}</button>
       {state % 2 && <AmeHooksPage />} */}
-      <ReduxPage title="coboy" count={state} />
+      {/* <ReduxPage title="coboy" count={state} /> */}
+      <AmeReactReduxHooksPage />
     </div>
   );
 }

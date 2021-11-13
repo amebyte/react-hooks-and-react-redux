@@ -54,3 +54,27 @@ export function bindActionCreators(creators, dispatch) {
 function bindActionCreator(creator, dispatch) {
     return (...args) => dispatch(creator(...args))
 }
+
+export function useDispatch() {
+    const store = useContext(Context)
+    return store.dispatch
+}
+
+export function useSelector(selector) {
+    const store = useContext(Context)
+    const selectedState = selector(store.getState())
+
+    const forceUpdate = useForceUpdate()
+    useLayoutEffect(() => {
+       const unsubscribe = store.subscribe(() => {
+            forceUpdate()
+            // forceUpdate((prev) => prev + 1)
+            // forceUpdate()
+        })
+        return () => {
+            unsubscribe()
+        }
+    }, [store])
+
+    return selectedState
+}
