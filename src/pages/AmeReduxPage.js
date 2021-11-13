@@ -10,21 +10,21 @@ import { bindActionCreators, connect } from "../coReactRedux/"
     // mapStateToProps
     // (state) => ({count: state.count})
     ({count}) => ({count}),
-    // {
-    //     add: () => ({ type: 'ADD'})
-    // }
-    (dispatch) => {
-        // const add = () => dispatch({type: 'ADD'})
-        // const minus = () => dispatch({type: 'MINUS'})
-
-        let creators = {
-            add: () => ({type: 'ADD'}),
-            minus: () => ({type: 'MINUS'})
-        }
-        creators = bindActionCreators(creators, dispatch)
-        // return { dispatch, add, minus }
-        return { dispatch, ...creators }
+    {
+        add: () => ({ type: 'ADD'})
     }
+    // (dispatch) => {
+    //     // const add = () => dispatch({type: 'ADD'})
+    //     // const minus = () => dispatch({type: 'MINUS'})
+
+    //     let creators = {
+    //         add: () => ({type: 'ADD'}),
+    //         minus: () => ({type: 'MINUS'})
+    //     }
+    //     creators = bindActionCreators(creators, dispatch)
+    //     // return { dispatch, add, minus }
+    //     return { dispatch, ...creators }
+    // }
 )
 class ReduxPage extends Component {
 
@@ -41,7 +41,7 @@ class ReduxPage extends Component {
       <div>
         <h3>ReduxPage</h3>
         <p>{count}</p>
-        <button onClick={this.add1}>add</button>
+        <button onClick={add}>add</button>
         <button onClick={minus}>minus</button>
       </div>
     );
